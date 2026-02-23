@@ -33,12 +33,20 @@ server {
 EOF
 
 # 2. Start/Restart Nginx with the challenge config
-echo "⏳ Restarting Nginx to handle the challenge..."
+echo "⏳ Stopping old Nginx..."
+docker-compose stop frontend
+echo "⏳ Starting Nginx with challenge config..."
 docker-compose up -d frontend
+# Give Nginx 5 seconds to fully start
+sleep 5
 
 # 3. Create Certbot directories
 mkdir -p ./certbot/conf
 mkdir -p ./certbot/www
+
+# Check if port 80 is listening (for debugging)
+echo "🔍 Checking if Port 80 is open on the server..."
+sudo netstat -tuln | grep :80 || echo "⚠️ Warning: Port 80 does not seem to be listening!"
 
 # 4. Request Certificate
 echo "🔐 Requesting certificate from Let's Encrypt..."
