@@ -33,7 +33,9 @@ const Chat = () => {
         intent: response.data.intent
       }]);
     } catch (error) {
-      setMessages(prev => [...prev, { text: "Sorry, kuch error aa gaya database connect karne me.", sender: 'bot' }]);
+      console.error("Chat Post Error:", error.response?.data || error.message);
+      const errMsg = error.response?.data?.error || "Sorry, kuch error aa gaya database connect karne me.";
+      setMessages(prev => [...prev, { text: errMsg, sender: 'bot' }]);
     }
   };
 

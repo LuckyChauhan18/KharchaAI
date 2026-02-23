@@ -5,7 +5,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 url: str = os.environ.get("SUPABASE_URL")
-key: str = os.environ.get("SUPABASE_KEY")
+key: str = os.environ.get("SUPABASE_ANON_KEY") or os.environ.get("SUPABASE_KEY")
+
+if not url or not key:
+    print("CRITICAL: SUPABASE_URL or SUPABASE_ANON_KEY missing in environment!")
+
 supabase: Client = create_client(url, key)
 
 from datetime import datetime, date, timedelta

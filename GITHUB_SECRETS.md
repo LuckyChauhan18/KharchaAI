@@ -17,6 +17,9 @@ Go to your GitHub repo -> **Settings** -> **Secrets and variables** -> **Actions
 ### 3. Build Variables (For Frontend)
 - `VITE_SUPABASE_URL`: Same as `SUPABASE_URL`.
 - `VITE_SUPABASE_ANON_KEY`: Same as `SUPABASE_ANON_KEY`.
+- `VITE_API_URL`: 
+    - **Local/Docker**: Leave blank.
+    - **Vercel**: Use your Render backend URL (e.g., `https://kharcha-backend.onrender.com`).
 
 ### 4. Deployment (CI/CD) [NEW]
 - `EC2_HOST`: The Public IPv4 address of your AWS instance.
