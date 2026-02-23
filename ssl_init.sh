@@ -13,6 +13,9 @@ fi
 
 echo "🚀 Starting SSL setup for $DOMAIN..."
 
+# 0. Cleanup any old folder/files
+rm -rf nginx.conf
+
 # 1. Update Nginx Config for Challenge
 cat <<EOF > nginx.conf
 server {
@@ -30,13 +33,11 @@ server {
 EOF
 
 # 2. Add Certbot to Docker-Compose
-# I'll update the docker-compose.yml in the repo via the AI, 
-# but this script ensures the volumes exist.
 mkdir -p ./certbot/conf
 mkdir -p ./certbot/www
 
-# 3. Request Certificate (Dry Run first check)
-docker-compose run --rm  certbot certonly --webroot --webroot-path=/var/www/certbot \
+# We must use --entrypoint "" to override the renewal loop defined in docker-compose.yml
+docker-compose run --rm --entrypoint "" certbot certbot certonly --webroot --webroot-path=/var/www/certbot \
     --email $EMAIL --agree-tos --no-eff-email \
     -d $DOMAIN
 
