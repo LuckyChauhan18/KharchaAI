@@ -3,23 +3,15 @@ const path = require('path');
 
 const callMcpTool = (toolName, toolArgs) => {
   return new Promise((resolve, reject) => {
-    // Command to run the python server via conda
-    const command = process.env.MCP_SERVER_COMMAND.split(' ');
+    // Parse command and base args from environment
+    const commandParts = (process.env.MCP_SERVER_COMMAND || 'python3 mcp-server/mcp_server.py').split(' ');
+    const cmd = commandParts[0];
+    const baseArgs = commandParts.slice(1);
 
-    // We'll use a simplified JSON-based communication for this agent demo
-    // In a real MCP production setup, you'd use the MCP SDK for Node.js
-    // Here we'll simulate the tool call by passing args via JSON to a runner or direct invocation
+    // Append tool-specific arguments
+    const args = [...baseArgs, toolName, JSON.stringify(toolArgs)];
 
-    // For this specific implementation, we will use a small logic to call the python function directly 
-    // to simplify the bridge since we are building both.
-
-    const pythonScript = path.join(__dirname, '../../mcp-server/mcp_server.py');
-    const args = [pythonScript, toolName, JSON.stringify(toolArgs)];
-
-    // Note: To truly use MCP stdio, we would keep a persistent process.
-    // For this prototype, we'll spawn a call for each request to ensure reliability.
-
-    const py = spawn('conda', ['run', '-n', 'expense-tracker', 'python', pythonScript, toolName, JSON.stringify(toolArgs)]);
+    const py = spawn(cmd, args);
 
     let result = '';
     let error = '';
