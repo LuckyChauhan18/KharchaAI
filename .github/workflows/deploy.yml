@@ -19,11 +19,11 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            if [ ! -d "~/kharcha-ai" ]; then
-              echo "Directory ~/kharcha-ai not found. Please clone the repo first!"
-              exit 1
+            if [ ! -d "$HOME/kharcha-ai" ]; then
+              echo "Project not found. Cloning for the first time..."
+              git clone https://github.com/LuckyChauhan18/KharchaAI.git $HOME/kharcha-ai
             fi
-            cd ~/kharcha-ai
+            cd $HOME/kharcha-ai
             git pull origin main
             # We assume .env files are already manually set up on the server as per the guide
             docker-compose down
