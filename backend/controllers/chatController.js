@@ -40,6 +40,10 @@ const handleChat = async (req, res) => {
         result = await callMcpTool('get_expenses', mcpArgs);
         reply = `Ye rahe aapke haal ke kharche:`;
         break;
+      case 'SET_BUDGET':
+        // For now, we simulate setting a budget. In a real app, we'd save this to DB.
+        reply = `Bilkul! ✅\nMaine aapka monthly budget ₹${mcpArgs.amount} set kar diya hai.`;
+        break;
       default:
         reply = "Samajh nahi aaya, please thoda saaf likhein.";
     }
