@@ -32,11 +32,16 @@ server {
 }
 EOF
 
-# 2. Add Certbot to Docker-Compose
+# 2. Start/Restart Nginx with the challenge config
+echo "⏳ Restarting Nginx to handle the challenge..."
+docker-compose up -d frontend
+
+# 3. Create Certbot directories
 mkdir -p ./certbot/conf
 mkdir -p ./certbot/www
 
-# We must use --entrypoint "" to override the renewal loop defined in docker-compose.yml
+# 4. Request Certificate
+echo "🔐 Requesting certificate from Let's Encrypt..."
 docker-compose run --rm --entrypoint "" certbot certbot certonly --webroot --webroot-path=/var/www/certbot \
     --email $EMAIL --agree-tos --no-eff-email \
     -d $DOMAIN
