@@ -19,6 +19,10 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            if [ ! -d "~/kharcha-ai" ]; then
+              echo "Directory ~/kharcha-ai not found. Please clone the repo first!"
+              exit 1
+            fi
             cd ~/kharcha-ai
             git pull origin main
             # We assume .env files are already manually set up on the server as per the guide
