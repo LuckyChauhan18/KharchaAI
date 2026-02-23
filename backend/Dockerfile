@@ -13,8 +13,9 @@ RUN npm install
 COPY mcp-server/requirements.txt ./mcp-requirements.txt
 RUN pip3 install --no-cache-dir -r mcp-requirements.txt --break-system-packages
 
-# Copy all files from backend
+# Copy backend and mcp-server files
 COPY backend/ .
+COPY mcp-server/ ./mcp-server/
 
 # Adjust MCP_SERVER_COMMAND for Docker environment
 # We remove the "conda run" part since we'll run it directly with python3
