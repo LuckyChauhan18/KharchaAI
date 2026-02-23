@@ -377,9 +377,10 @@ body {
 .expense-table-container {
   margin-top: 12px;
   border-radius: 16px;
-  overflow: hidden;
+  overflow-x: auto;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(15, 23, 42, 0.4);
+  -webkit-overflow-scrolling: touch;
 }
 
 .expense-table {
@@ -387,6 +388,75 @@ body {
   border-collapse: collapse;
   font-size: 13px;
   text-align: left;
+  min-width: 400px;
+}
+
+/* ... existing styles ... */
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .chat-layout {
+    padding: 20px;
+  }
+  
+  .chat-container {
+    height: calc(100vh - 40px);
+    border-radius: 20px;
+  }
+
+  .chat-header {
+    padding: 16px 20px;
+  }
+
+  .messages {
+    padding: 20px;
+  }
+
+  .message {
+    max-width: 85%;
+    font-size: 14px;
+  }
+
+  .input-wrapper {
+    padding: 16px 20px;
+  }
+
+  .auth-card {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-layout {
+    padding: 10px;
+  }
+
+  .chat-container {
+    height: calc(100vh - 20px);
+    border-radius: 16px;
+  }
+
+  .chat-header .logo span {
+    font-size: 16px;
+  }
+
+  .user-info {
+    display: none; /* Hide handles on very small screens to save space */
+  }
+
+  .input-area {
+    padding: 6px 10px 6px 16px;
+    gap: 10px;
+  }
+
+  .input-area input {
+    font-size: 14px;
+  }
+
+  .send-btn, .icon-btn {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 .expense-table th {
