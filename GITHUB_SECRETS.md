@@ -18,6 +18,11 @@ Go to your GitHub repo -> **Settings** -> **Secrets and variables** -> **Actions
 - `VITE_SUPABASE_URL`: Same as `SUPABASE_URL`.
 - `VITE_SUPABASE_ANON_KEY`: Same as `SUPABASE_ANON_KEY`.
 
+### 4. Deployment (CI/CD) [NEW]
+- `EC2_HOST`: The Public IPv4 address of your AWS instance.
+- `EC2_USERNAME`: Usually `ubuntu` (for Ubuntu instances).
+- `EC2_SSH_KEY`: The **entire content** of your `.pem` private key file.
+
 ## ⚠️ Important Note
 **NEVER** commit your actual password or API keys to the code. The `.gitignore` file I created will prevent you from accidentally uploading your `.env` files.
 

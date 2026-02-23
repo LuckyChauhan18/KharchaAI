@@ -1,0 +1,27 @@
+name: Deploy KharchaAi to AWS 🚀
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/kharcha-ai
+            git pull origin main
+            # We assume .env files are already manually set up on the server as per the guide
+            docker-compose down
+            docker-compose up -d --build
+            docker image prune -f
