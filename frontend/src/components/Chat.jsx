@@ -11,6 +11,7 @@ const Chat = () => {
   ]);
   const [input, setInput] = useState('');
   const [isListening, setIsListening] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSend = async (text) => {
     const query = text || input;
@@ -18,6 +19,7 @@ const Chat = () => {
 
     setMessages(prev => [...prev, { text: query, sender: 'user' }]);
     setInput('');
+    setIsLoading(true);
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -36,6 +38,8 @@ const Chat = () => {
       console.error("Chat Post Error:", error.response?.data || error.message);
       const errMsg = error.response?.data?.error || "Sorry, kuch error aa gaya database connect karne me.";
       setMessages(prev => [...prev, { text: errMsg, sender: 'bot' }]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,7 +68,7 @@ const Chat = () => {
     <div className="chat-layout">
       <div className="chat-container">
         <ChatHeader />
-        <MessageList messages={messages} />
+        <MessageList messages={messages} isLoading={isLoading} />
         <MessageInput
           input={input}
           setInput={setInput}

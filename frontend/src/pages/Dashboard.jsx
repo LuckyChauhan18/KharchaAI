@@ -86,8 +86,9 @@ const Dashboard = () => {
     datasets: [{
       data: Object.values(data.categoryData).length > 0 ? Object.values(data.categoryData) : [1],
       backgroundColor: [
-        '#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#f43f5e'
+        '#6366f1', '#a855f7', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#f43f5e', '#06b6d4'
       ],
+      hoverOffset: 12,
       borderWidth: 0,
     }]
   };
@@ -95,10 +96,13 @@ const Dashboard = () => {
   const barData = {
     labels: Object.keys(data.monthlyTrend).length > 0 ? Object.keys(data.monthlyTrend) : ['No Data'],
     datasets: [{
-      label: 'Monthly Spending',
+      label: 'Monthly Spending (₹)',
       data: Object.values(data.monthlyTrend).length > 0 ? Object.values(data.monthlyTrend) : [0],
-      backgroundColor: '#6366f1',
-      borderRadius: 8,
+      backgroundColor: 'rgba(99, 102, 241, 0.8)',
+      borderColor: '#6366f1',
+      borderWidth: 2,
+      borderRadius: 12,
+      hoverBackgroundColor: '#6366f1',
     }]
   };
 
@@ -108,7 +112,29 @@ const Dashboard = () => {
     plugins: {
       legend: {
         position: 'bottom',
-        labels: { color: '#94a3b8', font: { family: 'Inter', size: 10 } }
+        labels: {
+          color: '#94a3b8',
+          padding: 20,
+          font: { family: 'Inter', size: 11, weight: '500' }
+        }
+      },
+      tooltip: {
+        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+        titleFont: { size: 14, weight: 'bold' },
+        bodyFont: { size: 13 },
+        padding: 12,
+        cornerRadius: 8,
+        displayColors: true
+      }
+    },
+    scales: {
+      y: {
+        grid: { color: 'rgba(148, 163, 184, 0.1)', drawBorder: false },
+        ticks: { color: '#94a3b8', font: { size: 10 } }
+      },
+      x: {
+        grid: { display: false },
+        ticks: { color: '#94a3b8', font: { size: 10 } }
       }
     }
   };

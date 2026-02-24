@@ -11,7 +11,7 @@ const getCategoryIcon = (category) => {
   return '💰';
 };
 
-const MessageList = ({ messages }) => {
+const MessageList = ({ messages, isLoading }) => {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -39,6 +39,17 @@ const MessageList = ({ messages }) => {
           </div>
         </div>
       ))}
+      {isLoading && (
+        <div className="message-wrapper bot">
+          <div className="message bot-message">
+            <div className="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      )}
       <div ref={messagesEndRef} />
     </div>
   );

@@ -23,7 +23,8 @@ const getAnalytics = async (req, res) => {
     // Fetch a large enough sample of expenses to build analytics
     const expenses = await callMcpTool('get_expenses', {
       user_id: req.user.id,
-      limit: 100
+      limit: 100,
+      access_token: req.token
     });
 
     if (!expenses || !Array.isArray(expenses)) {
