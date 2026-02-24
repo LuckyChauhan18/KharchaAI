@@ -46,20 +46,40 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchAnalytics = async () => {
+      console.log("Dashboard: Starting fetchAnalytics...");
+      console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
+
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/expenses/analytics`, {
-          headers: { Authorization: `Bearer ${session.access_token}` }
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        if (sessionError) throw sessionError;
+        if (!session) {
+          console.warn("Dashboard: No session found, redirecting to auth");
+          return navigate('/auth');
+        }
+
+        console.log("Dashboard: Session found, calling API...");
+        const apiUrl = import.meta.env.VITE_API_URL || '';
+        const endpoint = `${apiUrl}/api/expenses/analytics`;
+        console.log("Dashboard: Fetching from:", endpoint);
+
+        const response = await axios.get(endpoint, {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+          timeout: 15000 // 15s timeout
         });
+
+        console.log("Dashboard: API Response received:", response.data);
         setData(response.data);
       } catch (error) {
         console.error("Fetch Analytics Error:", error);
+        if (error.code === 'ECONNABORTED') {
+          console.error("Dashboard: API request timed out");
+        }
       } finally {
         setLoading(false);
       }
     };
     fetchAnalytics();
-  }, []);
+  }, [navigate]);
 
   const pieData = {
     labels: Object.keys(data.categoryData).length > 0 ? Object.keys(data.categoryData) : ['No Data'],
