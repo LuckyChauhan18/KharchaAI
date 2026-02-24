@@ -2,6 +2,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 const callMcpTool = (toolName, toolArgs) => {
+  const startTime = Date.now();
   return new Promise((resolve, reject) => {
     // Parse command and base args from environment
     const commandParts = (process.env.MCP_SERVER_COMMAND || 'python3 mcp-server/mcp_server.py').split(' ');
@@ -25,6 +26,9 @@ const callMcpTool = (toolName, toolArgs) => {
     });
 
     py.on('close', (code) => {
+      const duration = Date.now() - startTime;
+      console.log(`MCP [${toolName}] finished in ${duration}ms`);
+
       if (code !== 0) {
         console.error('MCP Error stderr:', error);
         return reject(error || 'Python process exited with code ' + code);

@@ -65,7 +65,7 @@ const Dashboard = () => {
 
         const response = await axios.get(endpoint, {
           headers: { Authorization: `Bearer ${session.access_token}` },
-          timeout: 15000 // 15s timeout
+          timeout: 30000 // Increased to 30s
         });
 
         console.log("Dashboard: API Response received:", response.data);
