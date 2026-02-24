@@ -54,7 +54,8 @@ const getAnalytics = async (req, res) => {
       categoryData,
       monthlyTrend,
       totalSpent,
-      count: expenses.length
+      count: expenses.length,
+      expenses // Include raw expenses for CSV export
     });
   } catch (error) {
     console.error('Analytics Error:', error);

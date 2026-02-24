@@ -41,7 +41,8 @@ const Dashboard = () => {
     categoryData: {},
     monthlyTrend: {},
     totalSpent: 0,
-    count: 0
+    count: 0,
+    expenses: []
   });
 
   useEffect(() => {
@@ -140,12 +141,37 @@ const Dashboard = () => {
   };
 
   const downloadCSV = () => {
-    if (!data.count) return alert("No data to export");
+    if (!data.expenses || data.expenses.length === 0) return alert("No data to export");
 
-    // In a real app, we might fetch all records for a full CSV, 
-    // but here we can export what we have if we had the raw list.
-    // For now, let's keep the logic simple or just notify.
-    alert("Exporting " + data.count + " records...");
+    // CSV Headers
+    const headers = ["Date", "Description", "Category", "Amount"];
+
+    // Format rows
+    const rows = data.expenses.map(exp => [
+      new Date(exp.created_at).toLocaleDateString(),
+      `"${exp.description || ''}"`, // Wrap in quotes to handle commas
+      exp.category || 'misc',
+      exp.amount
+    ]);
+
+    // Combine headers and rows
+    const csvContent = [
+      headers.join(","),
+      ...rows.map(row => row.join(","))
+    ].join("\n");
+
+    // Create Blob and Download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `kharcha_ai_expenses_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    console.log("Dashboard: CSV Exported successfully");
   };
 
   if (loading) return <div className="loading-screen">Loading Analytics...</div>;
