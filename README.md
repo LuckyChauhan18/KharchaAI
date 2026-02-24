@@ -7,6 +7,12 @@
   [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
   [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
   [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+
+  <p>
+    <a href="https://kharcha-ai-wheat.vercel.app/"><strong>Explore Live Demo »</strong></a>
+    <br />
+    <a href="https://github.com/LuckyChauhan18/KharchaAI">View Repository</a>
+  </p>
 </div>
 
 ---
@@ -84,4 +90,8 @@ npm start
 <div align="center">
   <p>Made with ❤️ by <strong>Lucky Chauhan</strong></p>
   <p>Built for the modern Indian spender. 🇮🇳🚀</p>
+  <p>
+    <a href="https://kharcha-ai-wheat.vercel.app/">Live Demo</a> •
+    <a href="https://github.com/LuckyChauhan18/KharchaAI">View Code</a>
+  </p>
 </div>
