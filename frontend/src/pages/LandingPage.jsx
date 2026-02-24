@@ -65,24 +65,63 @@ const LandingPage = () => {
 
       <section className="guide-section">
         <h2 className="section-title">How to Start</h2>
-        <div className="guide-steps">
-          <div className="step">
-            <span className="step-num">1</span>
-            <p>Create an account or Sign In.</p>
+        <div className="guide-grid">
+          <div className="guide-card">
+            <div className="guide-icon-wrapper">
+              <Zap className="guide-icon" />
+            </div>
+            <h3>1. Sign Up</h3>
+            <p>Create your secure account in seconds and get started for free.</p>
           </div>
-          <div className="step">
-            <span className="step-num">2</span>
-            <p>Speak or Type your expense (e.g., "Food 200").</p>
+          <div className="guide-card highlight-card">
+            <div className="guide-icon-wrapper">
+              <PieChart className="guide-icon" />
+            </div>
+            <h3>2. Record Expenses</h3>
+            <p>Speak or type like "Chai 20" and let AI handle the categorization.</p>
           </div>
-          <div className="step">
-            <span className="step-num">3</span>
-            <p>See your dashboard update in real-time!</p>
+          <div className="guide-card">
+            <div className="guide-icon-wrapper">
+              <ShieldCheck className="guide-icon" />
+            </div>
+            <h3>3. Master Finances</h3>
+            <p>Track spending trends and stay within your budget effortlessly.</p>
           </div>
         </div>
       </section>
 
       <footer className="landing-footer">
-        <p>© 2026 KharchaAI. Smartly managing your Kharcha.</p>
+        <div className="footer-content">
+          <div className="footer-brand">
+            <div className="logo">
+              <Zap className="primary-color" />
+              <span>KharchaAI</span>
+            </div>
+            <p>Your smart Hinglish AI expense sidekick. Built for the modern Indian spender.</p>
+          </div>
+
+          <div className="footer-links">
+            <div className="footer-col">
+              <h4>Product</h4>
+              <button onClick={() => document.getElementById('features').scrollIntoView()}>Features</button>
+              <button onClick={() => navigate('/dashboard')}>Dashboard</button>
+              <button onClick={() => navigate('/auth')}>Login</button>
+            </div>
+            <div className="footer-col">
+              <h4>Support</h4>
+              <a href="https://github.com/LuckyChauhan18/KharchaAI" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="https://kharcha-ai-wheat.vercel.app/" target="_blank" rel="noreferrer">Live Demo</a>
+              <button onClick={() => alert("Coming soon!")}>Help Center</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>© 2026 KharchaAI. Made with ❤️ by Lucky Chauhan.</p>
+          <div className="social-links">
+            <a href="https://github.com/LuckyChauhan18/KharchaAI" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
       </footer>
     </div>
   );
